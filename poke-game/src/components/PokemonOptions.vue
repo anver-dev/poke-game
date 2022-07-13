@@ -1,28 +1,23 @@
+<!-- eslint-disable vue/require-v-for-key -->
 <template>
-  <div class="d-flex justify-content-center mb-4">
-    <div class="card mt-4" style="width: 18rem">
-      <div class="card-body">
-        <div class="row">
-          <div
-            v-for="pokemon in pokemons"
-            class="col-12 col-md-12 d-grid gap-2"
-          >
-            <button
-              type="button"
-              class="btn btn-danger m-1"
-              :key="pokemon.id"
-              @click="$emit('selection', pokemon.id)"
-            >
-              {{ pokemon.name }}
-            </button>
-          </div>
-          
-        </div>
+  <div class="q-pa-md justify-center">
+    <div class="column items-center">
+      <div v-for="pokemon in pokemons" class="col-4">
+        <q-btn
+          push
+          color="red"
+          size="md"
+          class="q-mr-xs"
+          style="margin-top: 5px"
+          text-color="white"
+          :key="pokemon.id"
+          @click="$emit('selection', pokemon.id)"
+          :label="pokemon.name"
+        />
       </div>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   props: {
