@@ -1,8 +1,13 @@
+import VuexPersistence from "vuex-persist";
+import { createStore } from "vuex";
+
 import users from "./modules/users";
 import scores from "./modules/scores";
 import levels from "./modules/levels.js";
 
-import { createStore } from "vuex";
+const vuexLocal = new VuexPersistence({
+  storage: window.localStorage,
+});
 
 const store = createStore({
   modules: {
@@ -10,6 +15,7 @@ const store = createStore({
     scores,
     levels,
   },
+  plugins: [vuexLocal.plugin],
 });
 
 export default store;
