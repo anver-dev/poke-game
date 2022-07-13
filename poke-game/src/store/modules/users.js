@@ -28,7 +28,7 @@ const usuarios = {
       state.isLoadingUsers = false;
     },
     ADD_USER(state, userCreated) {
-      state.userLogged = userCreated;
+      state.userLogged = userCreated[0];
     },
   },
 };
