@@ -1,15 +1,20 @@
 <template>
-  <h3>¿Quién es este Pokémon?</h3>
-  <div v-if="!pokemon" class="d-flex justify-content-center">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
+  <PlayerInformation />
+  <hr />
+  <h4 class="text-center no-margin">Who this pokemon?</h4>
+  <div v-if="!pokemon" class="column items-center">
+    <q-spinner-ball color="red" size="5.5em" />
   </div>
   <div class="fade-in" v-else>
-    <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
-    <PokemonOptions :pokemons="pokemons" @selection="checkAnswer" />
+    <transition-group
+      appear
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
+      <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
+      <PokemonOptions :pokemons="pokemons" @selection="checkAnswer" />
+    </transition-group>
   </div>
-
   <template v-if="showAnswer">
     <h2>{{ message }}</h2>
     <button class="btn btn-primary" type="button" @click="newGame">
@@ -21,12 +26,14 @@
 <script>
 import PokemonPicture from "@/components/PokemonPicture";
 import PokemonOptions from "@/components/PokemonOptions";
+import PlayerInformation from "../components/PlayerInformation.vue";
+
 import getPokemonsOptions from "@/helpers/getPokemonOptions";
 import { mapActions } from "vuex";
 
 console.log(getPokemonsOptions());
 export default {
-  components: { PokemonPicture, PokemonOptions },
+  components: { PokemonPicture, PokemonOptions, PlayerInformation },
   data() {
     return {
       pokemons: [],

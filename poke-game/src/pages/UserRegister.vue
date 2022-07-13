@@ -11,10 +11,11 @@
             v-model="user"
             stack-label
             label="Type a user to play!"
-            error-message="Please "
-            :error="userExist"
+            error-message="Please type a user"
+            :error="!user || user ==''"
           />
         </div>
+        <br>
         <div class="col">
           <div class="fit row wrap justify-center items-start content-start">
             <q-btn
@@ -22,7 +23,7 @@
               icon-right="play_arrow"
               label="play"
               @click="register"
-              :disable="userExist"
+              :disable="!user || user ==''"
             />
           </div>
         </div>
@@ -42,15 +43,6 @@ export default {
   },
   computed: {
     ...mapState("users", ["userLogged"]),
-    userExist() {
-      console.log(
-        "🚀 ~ file: UserRegister.vue ~ line 47 ~ userExist ~ this.user ",
-        this.user
-      );
-      if (this.user == "" || !this.user) return true;
-
-      return false;
-    },
   },
   methods: {
     ...mapActions("users", ["addUser"]),
@@ -67,6 +59,7 @@ export default {
   watch: {
     userLogged() {
       console.log("usuario creado :)");
+      this.$router.push({ name: "game"})
     },
   },
 };
